@@ -19,9 +19,16 @@ import os
 
 EMOJI = "\U0001F60A"  # 😊 smiling face with smiling eyes
 
+DEFAULT_OUTPUT_PATH = "/output/entry.txt"
+
+
+def resolve_output_path() -> str:
+    """Return the output path, honouring OUTPUT_PATH when set."""
+    return os.environ.get("OUTPUT_PATH", DEFAULT_OUTPUT_PATH)
+
 
 def main() -> None:
-    output_path = os.environ.get("OUTPUT_PATH", "/output/entry.txt")
+    output_path = resolve_output_path()
     parent = os.path.dirname(output_path)
     if parent:
         os.makedirs(parent, exist_ok=True)
